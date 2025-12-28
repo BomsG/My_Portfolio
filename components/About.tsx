@@ -40,7 +40,7 @@ const About: React.FC = () => {
                 My Philosophy
               </span>
               <h2 className="text-4xl md:text-5xl font-bold text-editorial-ink dark:text-white leading-tight">
-                Good Enought is <br />
+                Good Enough is <br />
                 Never Enough.
               </h2>
             </div>
