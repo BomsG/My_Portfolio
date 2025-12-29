@@ -43,17 +43,14 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 2,
-    title: "Aura Commerce",
+    title: "ByeWind-Dashboard",
     category: "web",
-    problem:
-      "E-commerce users were dropping off due to slow page loads and complex checkout flows.",
-    solution:
-      "Optimized Core Web Vitals using SSG and a one-tap checkout system.",
-    tech: ["React", "TypeScript", "Stripe API"],
+    problem: "Dashboard",
+    solution: "Dashboard with real time data",
+    tech: ["nodejs", "TypeScript", "nextjs", "Stripe API"],
     liveUrl: "#",
     githubUrl: "#",
-    image:
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop",
+    image: "/images/p2.png",
   },
   {
     id: 4,
