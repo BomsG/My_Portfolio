@@ -5,7 +5,6 @@ import {
   RiCpuLine,
   RiGlobalLine,
   RiGithubFill,
-  // Fix: Renamed RiThunderstormLine to RiThunderstormsLine
   RiThunderstormsLine,
   RiHeartFill,
   RiTeamLine,
@@ -48,8 +47,8 @@ export const PROJECTS: Project[] = [
     problem: "Dashboard",
     solution: "Dashboard with real time data",
     tech: ["nodejs", "TypeScript", "nextjs", "Stripe API"],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://byewind-dashhboard.vercel.app/",
+    githubUrl: "https://github.com/BomsG/Byewind-dashboard",
     image: "/images/p2.png",
   },
   {
