@@ -16,14 +16,14 @@ import {
 import { Project, Skill, TeamValue } from "./types";
 
 export const SKILLS: Skill[] = [
-  { name: "Next.js", icon: <RiStackLine size={12} /> },
-  { name: "React", icon: <RiCodeSSlashLine size={12} /> },
-  { name: "TypeScript", icon: <RiCpuLine size={12} /> },
-  { name: "Tailwind CSS", icon: <RiSmartphoneLine size={12} /> },
-  { name: "Node.js", icon: <RiServerLine size={12} /> },
-  { name: "Git/GitHub", icon: <RiGithubFill size={12} /> },
-  { name: "REST APIs", icon: <RiGlobalLine size={12} /> },
-  { name: "PostgreSQL", icon: <RiTerminalBoxLine size={12} /> },
+  { name: "Next.js", icon: <RiStackLine size={20} /> },
+  { name: "React", icon: <RiCodeSSlashLine size={20} /> },
+  { name: "TypeScript", icon: <RiCpuLine size={20} /> },
+  { name: "Tailwind CSS", icon: <RiSmartphoneLine size={20} /> },
+  { name: "Node.js", icon: <RiServerLine size={20} /> },
+  { name: "Git/GitHub", icon: <RiGithubFill size={20} /> },
+  { name: "REST APIs", icon: <RiGlobalLine size={20} /> },
+  { name: "PostgreSQL", icon: <RiTerminalBoxLine size={20} /> },
 ];
 
 export const PROJECTS: Project[] = [
@@ -86,25 +86,24 @@ export const VALUES: TeamValue[] = [
     title: "Problem-Solving Mindset",
     description:
       "I don't just write code; I design systems that resolve real-world pain points with efficiency.",
-    // Fix: Updated to use RiThunderstormsLine
-    icon: <RiThunderstormsLine size={12} />,
+    icon: <RiThunderstormsLine size={20} />,
   },
   {
     title: "Clean & Scalable Code",
     description:
       "Prioritizing maintainability and readability to ensure long-term project success.",
-    icon: <RiMagicLine size={12} />,
+    icon: <RiMagicLine size={20} />,
   },
   {
     title: "Strong UI Attention",
     description:
       "Bridging the gap between design and engineering with pixel-perfect precision.",
-    icon: <RiHeartFill size={12} />,
+    icon: <RiHeartFill size={20} />,
   },
   {
     title: "Collaboration first",
     description:
       "Thriving in agile environments where clear communication and shared goals are key.",
-    icon: <RiTeamLine size={12} />,
+    icon: <RiTeamLine size={20} />,
   },
 ];

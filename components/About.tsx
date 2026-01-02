@@ -17,9 +17,9 @@ const About: React.FC = () => {
             viewport={{ once: true }}
             className="relative group"
           >
-            <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl ring-1 ring-editorial-pebble dark:ring-white/10 transition-transform duration-700 group-hover:scale-[1.02]">
+            <div className="rounded-[3rem] overflow-hidden shadow-2xl ring-1 ring-editorial-pebble dark:ring-white/10 transition-transform duration-700 group-hover:scale-[1.02]">
               <img
-                src="/images/boms.jpeg"
+                src="/images/bom.jpeg"
                 alt="Developer Profile"
                 className="w-full h-full object-cover filter contrast-[1.1] grayscale group-hover:grayscale-0 transition-all duration-1000"
               />

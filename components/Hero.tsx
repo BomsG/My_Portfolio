@@ -7,7 +7,6 @@ import {
   RiLinkedinBoxFill,
   RiTwitterXFill,
   RiMagicLine,
-  // Fix: Renamed RiThunderstormLine to RiThunderstormsLine
   RiThunderstormsLine,
 } from "react-icons/ri";
 
@@ -230,67 +229,11 @@ const Hero: React.FC<HeroProps> = ({ setActiveSection }) => {
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="relative h-[500px] lg:h-[600px] w-full flex items-center justify-center lg:block"
         >
-          <motion.div
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[380px] h-[450px] lg:h-[480px] glass-card rounded-[2.5rem] p-8 lg:p-10 flex flex-col justify-between shadow-2xl z-20"
-          >
-            <div className="space-y-6">
-              <div className="flex justify-between items-start">
-                <div className="w-12 h-12 rounded-2xl bg-editorial-base dark:bg-obsidian-700 flex items-center justify-center shadow-sm">
-                  <RiMagicLine size={12} color="#00ACC1" />
-                </div>
-                <div className="px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest border border-blue-100 dark:border-blue-900/50">
-                  Ready to deploy
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-bold text-editorial-ink dark:text-white mb-2">
-                  Technical Core
-                </h3>
-                <p className="text-editorial-slate dark:text-slate-400 text-xs leading-relaxed font-light">
-                  Expert in building React architectures that balance
-                  performance, polish, and a visually striking user experience.
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <div className="flex justify-between text-[10px] font-bold text-editorial-slate dark:text-cyan-400 uppercase tracking-tighter">
-                  <span>Development Efficiency</span>
-                  <span>98%</span>
-                </div>
-                <div className="h-1 w-full bg-editorial-pebble dark:bg-obsidian-700 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: "98%" }}
-                    transition={{ duration: 2, delay: 1 }}
-                    className="h-full bg-editorial-ink dark:bg-gradient-to-r dark:from-cyan-400 dark:to-blue-600"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-4 rounded-2xl bg-white/60 dark:bg-obsidian-900/40 border border-editorial-pebble dark:border-obsidian-700">
-                <div className="text-[10px] text-editorial-slate dark:text-cyan-400 font-bold mb-1 uppercase tracking-tight">
-                  Logic
-                </div>
-                <div className="text-lg font-bold text-editorial-ink dark:text-white">
-                  Robust
-                </div>
-              </div>
-              <div className="p-4 rounded-2xl bg-white/60 dark:bg-obsidian-900/40 border border-editorial-pebble dark:border-obsidian-700">
-                <div className="text-[10px] text-editorial-slate dark:text-cyan-400 font-bold mb-1 uppercase tracking-tight">
-                  Transforming UI/UX
-                </div>
-                <div className="text-lg font-bold text-editorial-ink dark:text-white">
-                  Seamless
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
+          <img
+            src="/images/boms.jpeg"
+            alt="Developer Profile"
+            className="w-full h-full object-cover filter contrast-[1.1] grayscale group-hover:grayscale-0 transition-all duration-1000"
+          />
           <motion.div
             animate={{ y: [0, 30, 0], x: [0, 10, 0] }}
             transition={{
@@ -319,6 +262,20 @@ const Hero: React.FC<HeroProps> = ({ setActiveSection }) => {
             </div>
             <span className="text-[10px] font-bold text-editorial-ink dark:text-slate-200 uppercase tracking-wider">
               MERN Stack
+            </span>
+          </motion.div>
+
+          <motion.div
+            animate={{ y: [0, -40, 0], x: [0, -15, 0] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-[0%] left-[7%] p-4 rounded-2xl glass-card shadow-lg flex items-center gap-3 z-30"
+          >
+            <div className="flex -space-x-1">
+              <div className="w-5 h-5 rounded-full bg-editorial-ink dark:bg-cyan-400 border border-white dark:border-obsidian-700" />
+              <div className="w-5 h-5 rounded-full bg-editorial-pebble dark:bg-blue-400 border border-white dark:border-obsidian-700" />
+            </div>
+            <span className="text-[10px] font-bold text-editorial-ink dark:text-slate-200 uppercase tracking-wider">
+              Reliable
             </span>
           </motion.div>
         </motion.div>
