@@ -34,7 +34,7 @@ const App: React.FC = () => {
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
 
   return (
-    <div className="min-h-screen bg-soft-gradient selection:bg-cyan-500 selection:text-white transition-colors duration-500">
+    <div className="min-h-screen bg-soft-gradient selection:bg-cyan-500 selection:text-white transition-colors duration-500 overflow-hidden">
       <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <main>
         <Hero setActiveSection={setActiveSection} />
