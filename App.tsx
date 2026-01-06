@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("theme");
-      // Default to dark mode if no preference is saved
+
       if (saved) return saved === "dark";
       return true;
     }

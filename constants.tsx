@@ -52,7 +52,31 @@ export const PROJECTS: Project[] = [
     image: "/images/p2.png",
   },
   {
+    id: 3,
+    title: "KnowLearn",
+    category: "web",
+    problem: "basic form tools for serious learning and assessment",
+    solution:
+      "KnowLearn is built to bridge the gap between simple online forms and real educational assessment tools. It enables creators to design interactive, timed, and review-based quizzes that provide meaningful feedback and performance insights, making assessments more engaging and useful for learning.",
+    tech: ["React", "TypeScript", "nodejs", "Mongodb"],
+    liveUrl: "https://bg-know-learn.vercel.app/",
+    githubUrl: "https://github.com/BomsG/KnowLearn",
+    image: "/images/p3.png",
+  },
+  {
     id: 4,
+    title: "RISTORANTÈ",
+    category: "web",
+    problem: "A modern Restaurant website ",
+    solution:
+      "RISTORANTÈ is a modern restaurant platform where users can browse menus, book reservations, and connect seamlessly with delivery services and dispatchers for a complete dining experience.",
+    tech: ["Nextjs", "TypeScript", "nodejs", "Mongodb"],
+    liveUrl: "https://ristorant.vercel.app/",
+    githubUrl: "https://github.com/BomsG/-RISTORANT-",
+    image: "/images/p4.png",
+  },
+  {
+    id: 5,
     title: "Verve Mobile",
     category: "mobile",
     problem:
@@ -66,7 +90,7 @@ export const PROJECTS: Project[] = [
       "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop",
   },
   {
-    id: 5,
+    id: 6,
     title: "Zenith Pay",
     category: "mobile",
     problem:
