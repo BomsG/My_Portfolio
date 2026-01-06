@@ -38,9 +38,9 @@ const App: React.FC = () => {
       <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <main>
         <Hero setActiveSection={setActiveSection} />
+        <Projects />
         <About />
         <Skills />
-        <Projects />
         <Values />
         <ContactSection />
       </main>
