@@ -199,10 +199,13 @@ const Hero: React.FC<HeroProps> = ({ setActiveSection }) => {
 
           <motion.div variants={itemVariants} className="flex gap-6">
             {[
-              { icon: <RiGithubFill size={22} />, href: "https://github.com" },
+              {
+                icon: <RiGithubFill size={22} />,
+                href: "https://github.com/BomsG",
+              },
               {
                 icon: <RiLinkedinBoxFill size={22} />,
-                href: "https://linkedin.com",
+                href: "https://www.linkedin.com/in/boma-george-03b961260/",
               },
               {
                 icon: <RiTwitterXFill size={22} />,
