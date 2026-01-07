@@ -25,25 +25,6 @@ export const ContactSection: React.FC = () => {
       [name]: value,
     }));
   };
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
-  //   // Simulate form submission
-  //   setTimeout(() => {
-  //     setIsSubmitting(false);
-  //     setIsSubmitted(true);
-  //     setFormState({
-  //       name: "",
-  //       email: "",
-  //       subject: "",
-  //       message: "",
-  //     });
-  //     // Reset success message after 5 seconds
-  //     setTimeout(() => {
-  //       setIsSubmitted(false);
-  //     }, 5000);
-  //   }, 1500);
-  // };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,7 +79,7 @@ export const ContactSection: React.FC = () => {
     },
   ];
   return (
-    <section id="contact" className="py-24 px-4 bg-slate-800/50">
+    <section id="contact" className="py-24 px-4 dark:bg-slate-800/50">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
