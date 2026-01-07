@@ -95,7 +95,7 @@ export const ContactSection: React.FC = () => {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-1 order-2 lg:order-1">
-            <div className="bg-slate-700/50 backdrop-blur-sm rounded-xl p-8">
+            <div className="bg-slate-700/50  backdrop-blur-sm rounded-xl p-8">
               <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (

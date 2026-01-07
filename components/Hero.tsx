@@ -235,7 +235,7 @@ const Hero: React.FC<HeroProps> = ({ setActiveSection }) => {
           <img
             src="/images/boms.jpeg"
             alt="Developer Profile"
-            className="w-full h-full object-cover filter contrast-[1.1] grayscale group-hover:grayscale-0 transition-all duration-1000"
+            className="w-full h-full object-cover filter rounded-r-full contrast-[1.1] grayscale group-hover:grayscale-0 transition-all duration-1000"
           />
           <motion.div
             animate={{ y: [0, 30, 0], x: [0, 10, 0] }}
