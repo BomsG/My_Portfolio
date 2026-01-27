@@ -67,9 +67,9 @@ const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode }) => {
             aria-label="Toggle Dark Mode"
           >
             {isDarkMode ? (
-              <RiSunLine size={20} color="#FFEE58 " />
+              <RiSunLine size={20} color="#26C6DA " />
             ) : (
-              <RiMoonLine size={20} color="#FFEE58 " />
+              <RiMoonLine size={20} color="#26C6DA " />
             )}
           </button>
 
@@ -90,9 +90,9 @@ const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode }) => {
             className="p-2 rounded-full hover:bg-editorial-pebble dark:hover:bg-obsidian-700 transition-colors"
           >
             {isDarkMode ? (
-              <RiSunLine size={20} color="#FFEE58 " />
+              <RiSunLine size={20} color="#26C6DA " />
             ) : (
-              <RiMoonLine size={20} color="#FFEE58 " />
+              <RiMoonLine size={20} color="#26C6DA " />
             )}
           </button>
           <button
