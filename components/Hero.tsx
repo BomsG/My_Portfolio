@@ -247,7 +247,6 @@ const Hero: React.FC<HeroProps> = ({ setActiveSection }) => {
             }}
             className="absolute top-[8%] right-[5%] lg:right-[15%] p-4 rounded-2xl glass-card shadow-lg flex items-center gap-3 z-30"
           >
-            {/* Fix: Updated to use RiThunderstormsLine */}
             <RiThunderstormsLine size={12} color="#00ACC1" />
             <span className="text-[10px] font-bold text-editorial-ink dark:text-slate-200 uppercase tracking-wider">
               Performance First

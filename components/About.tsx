@@ -1,5 +1,5 @@
 import React from "react";
-// Fix: Casting motion to any to resolve property missing errors caused by environment-specific type definition issues
+
 import { motion as motionBase } from "framer-motion";
 const motion = motionBase as any;
 
@@ -24,7 +24,7 @@ const About: React.FC = () => {
                 className="w-full h-full object-cover filter contrast-[1.1] grayscale group-hover:grayscale-0 transition-all duration-1000"
               />
             </div>
-            {/* Elegant Accents */}
+
             <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-cyan-100 dark:bg-cyan-900/20 -z-10 rounded-full blur-3xl opacity-60" />
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-purple-100 dark:bg-purple-900/20 -z-10 rounded-full blur-3xl opacity-40" />
           </motion.div>
