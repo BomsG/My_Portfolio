@@ -1,51 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
+import CurtainLoader from "./components/CurtainLoader";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Values from "./components/Values";
-
 import Footer from "./components/Footer";
 import { ContactSection } from "./components/Contact";
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState("home");
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("theme");
+  const [isReady, setIsReady] = useState(false);
 
-      if (saved) return saved === "dark";
-      return true;
-    }
-    return true;
-  });
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDarkMode]);
-
-  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
+  const handleCurtainComplete = useCallback(() => {
+    setIsReady(true);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-soft-gradient selection:bg-cyan-500 selection:text-white transition-colors duration-500 overflow-hidden">
-      <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-      <main>
-        <Hero setActiveSection={setActiveSection} />
-        <Skills />
-        <Projects />
-        <About />
-        <Values />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <CurtainLoader onComplete={handleCurtainComplete} />
+      <div className="min-h-screen selection:bg-white selection:text-black overflow-x-hidden" style={{ background: "#111111" }}>
+        <Navbar />
+        <main>
+          <Hero setActiveSection={setActiveSection} isReady={isReady} />
+          <Skills />
+          <Projects />
+          <About />
+          <Values />
+          <ContactSection />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 };
 

@@ -1,93 +1,78 @@
 import React, { useState } from "react";
 import { motion as motionBase, AnimatePresence } from "framer-motion";
 const motion = motionBase as any;
-import {
-  RiExternalLinkLine,
-  RiGithubFill,
-  RiGlobalLine,
-  RiSmartphoneLine,
-} from "react-icons/ri";
+import { RiExternalLinkLine, RiGithubFill, RiGlobalLine, RiSmartphoneLine } from "react-icons/ri";
 import { PROJECTS } from "../constants";
 import { Project } from "../types";
 
-const ProjectCard: React.FC<{ project: Project; index: number }> = ({
-  project,
-  index,
-}) => (
+const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => (
   <motion.div
     layout
-    initial={{ opacity: 0, y: 30, scale: 0.95 }}
-    animate={{ opacity: 1, y: 0, scale: 1 }}
-    exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-    whileHover={{ y: -10 }}
-    transition={{
-      duration: 0.5,
-      delay: index * 0.1,
-      ease: [0.23, 1, 0.32, 1],
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.2 } }}
+    whileHover={{ y: -8 }}
+    transition={{ duration: 0.55, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+    className="group flex flex-col h-full overflow-hidden rounded-[2rem] transition-all duration-500"
+    style={{
+      background: "#1a1a1a",
+      border: "1px solid rgba(255,255,255,0.07)",
+      boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
     }}
-    className="group relative bg-white dark:bg-obsidian-950 rounded-[2.5rem] overflow-hidden border border-editorial-pebble dark:border-obsidian-800 flex flex-col transition-all duration-500 hover:shadow-2xl dark:hover:shadow-purple-500/10 h-full"
   >
-    <div className="relative overflow-hidden aspect-[16/10]">
+    {/* Image */}
+    <div className="relative overflow-hidden aspect-[16/10]" style={{ background: "#222" }}>
       <motion.img
         src={project.image}
         alt={project.title}
-        whileHover={{ scale: 1.1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="w-full h-full object-cover filter contrast-[1.05]"
+        loading="lazy"
+        decoding="async"
+        whileHover={{ scale: 1.06 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-editorial-ink/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
 
-      <div className="absolute top-5 right-5 z-10">
-        <span className="px-4 py-1.5 rounded-full bg-white/90 dark:bg-obsidian-900/90 backdrop-blur-md text-[9px] font-bold uppercase tracking-[0.15em] text-editorial-ink dark:text-cyan-400 border border-editorial-pebble dark:border-obsidian-700 shadow-sm">
+      {/* Hover links */}
+      <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-400">
+        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
+          className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-black shadow-lg hover:scale-110 transition-transform"
+          onClick={(e) => e.stopPropagation()}>
+          <RiExternalLinkLine size={18} />
+        </a>
+        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
+          className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-black shadow-lg hover:scale-110 transition-transform"
+          onClick={(e) => e.stopPropagation()}>
+          <RiGithubFill size={18} />
+        </a>
+      </div>
+
+      {/* Tech badge */}
+      <div className="absolute top-4 left-4">
+        <span className="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.15em]"
+          style={{ background: "rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(8px)" }}>
           {project.tech[0]}
         </span>
       </div>
     </div>
 
-    <div className="p-8 flex flex-col flex-grow">
-      <div className="mb-6">
-        <h3 className="text-2xl font-bold mb-3 text-editorial-ink dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-sm text-editorial-slate dark:text-slate-400 font-light leading-relaxed line-clamp-2">
-          {project.solution}
-        </p>
-      </div>
-
-      <div className="flex flex-wrap gap-2 mb-8">
+    {/* Body */}
+    <div className="p-7 flex flex-col flex-grow">
+      <h3 className="text-xl font-black text-white mb-2 tracking-tight group-hover:text-white/70 transition-colors"
+        style={{ fontFamily: "'Sora', sans-serif" }}>
+        {project.title}
+      </h3>
+      <p className="text-sm font-light leading-relaxed line-clamp-2 mb-5 flex-grow"
+        style={{ color: "rgba(255,255,255,0.38)" }}>
+        {project.solution}
+      </p>
+      <div className="flex flex-wrap gap-1.5">
         {project.tech.map((t) => (
-          <span
-            key={t}
-            className="px-3 py-1 bg-editorial-base/50 dark:bg-obsidian-800/50 rounded-lg text-[9px] font-bold text-editorial-slate dark:text-slate-300 border border-editorial-pebble/50 dark:border-obsidian-700/50 uppercase tracking-tighter"
-          >
+          <span key={t} className="px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-tight"
+            style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.3)" }}>
             {t}
           </span>
         ))}
-      </div>
-
-      <div className="mt-auto flex items-center justify-between pt-6 border-t border-editorial-pebble/50 dark:border-obsidian-800/50">
-        <a
-          href={project.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-editorial-ink dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all"
-        >
-          <div className="w-8 h-8 rounded-full border border-editorial-pebble dark:border-obsidian-700 flex items-center justify-center group-hover:border-cyan-500 transition-colors">
-            <RiExternalLinkLine size={16} />
-          </div>
-          Preview
-        </a>
-        <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-editorial-ink dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all"
-        >
-          <div className="w-8 h-8 rounded-full border border-editorial-pebble dark:border-obsidian-700 flex items-center justify-center group-hover:border-cyan-500 transition-colors">
-            <RiGithubFill size={16} />
-          </div>
-          Code
-        </a>
       </div>
     </div>
   </motion.div>
@@ -95,27 +80,13 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
 
 const Projects: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"web" | "mobile">("web");
-  const filteredProjects = PROJECTS.filter((p) => p.category === activeTab);
   const [direction, setDirection] = useState(0);
+  const filteredProjects = PROJECTS.filter((p) => p.category === activeTab);
 
   const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 200 : -200,
-      opacity: 0,
-      scale: 0.98,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-      scale: 1,
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 200 : -200,
-      opacity: 0,
-      scale: 0.98,
-    }),
+    enter: (dir: number) => ({ x: dir > 0 ? 150 : -150, opacity: 0 }),
+    center: { x: 0, opacity: 1, zIndex: 1 },
+    exit: (dir: number) => ({ x: dir < 0 ? 150 : -150, opacity: 0, zIndex: 0 }),
   };
 
   const toggleTab = (tab: "web" | "mobile") => {
@@ -126,68 +97,45 @@ const Projects: React.FC = () => {
   };
 
   return (
-    <section
-      id="projects"
-      className="py-32 px-6 bg-editorial-base dark:bg-obsidian-900 transition-colors duration-500 overflow-hidden"
-    >
-      <div className="container mx-auto max-w-7xl">
+    <section id="projects" className="py-32 px-6 overflow-hidden" style={{ background: "#111111" }}>
+      <div className="container mx-auto max-w-6xl">
+
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16 text-center"
+          transition={{ duration: 0.8 }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-editorial-ink dark:text-white">
-            Selected Works
-          </h2>
-          <p className="text-editorial-slate dark:text-slate-400 font-light max-w-2xl mx-auto text-lg">
-            Focused on building high-performance applications with a strong
-            emphasis on architecture and UX.
-          </p>
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] mb-3"
+              style={{ color: "rgba(255,255,255,0.25)" }}>My Work</p>
+            <h2 className="text-5xl md:text-6xl font-black text-white leading-none tracking-[-0.03em]"
+              style={{ fontFamily: "'Sora', sans-serif" }}>
+              Selected<br />Works.
+            </h2>
+          </div>
+
+          {/* Tab toggle */}
+          <div className="flex items-center gap-2">
+            {(["web", "mobile"] as const).map((tab) => (
+              <button key={tab} onClick={() => toggleTab(tab)}
+                className="relative flex items-center gap-2 px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.18em] transition-all duration-300"
+                style={activeTab === tab
+                  ? { background: "#ffffff", color: "#0a0a0a" }
+                  : { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.35)" }
+                }
+              >
+                {tab === "web" ? <RiGlobalLine size={13} /> : <RiSmartphoneLine size={13} />}
+                {tab}
+              </button>
+            ))}
+          </div>
         </motion.div>
 
-        <div className="flex justify-center mb-20">
-          <div className="relative p-1.5 bg-white dark:bg-obsidian-800 rounded-2xl border border-editorial-pebble dark:border-obsidian-700 flex shadow-inner">
-            <motion.div
-              layout
-              className="absolute h-[calc(100%-12px)] top-[6px] rounded-xl bg-editorial-ink dark:bg-cyan-500 z-0"
-              style={{
-                width: activeTab === "web" ? "120px" : "140px",
-                left: activeTab === "web" ? "6px" : "126px",
-              }}
-              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-            />
-
-            <button
-              onClick={() => toggleTab("web")}
-              className={`relative z-10 w-[120px] py-2.5 text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${
-                activeTab === "web"
-                  ? "text-white"
-                  : "text-editorial-slate dark:text-slate-500"
-              }`}
-            >
-              <div className="flex items-center justify-center gap-2">
-                <RiGlobalLine size={16} />
-                Web Side
-              </div>
-            </button>
-            <button
-              onClick={() => toggleTab("mobile")}
-              className={`relative z-10 w-[140px] py-2.5 text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${
-                activeTab === "mobile"
-                  ? "text-white"
-                  : "text-editorial-slate dark:text-slate-500"
-              }`}
-            >
-              <div className="flex items-center justify-center gap-2">
-                <RiSmartphoneLine size={16} />
-                Mobile Side
-              </div>
-            </button>
-          </div>
-        </div>
-
-        <div className="relative min-h-[600px]">
+        {/* Grid */}
+        <div className="relative min-h-[560px]">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={activeTab}
@@ -196,11 +144,8 @@ const Projects: React.FC = () => {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 200, damping: 25 },
-                opacity: { duration: 0.4 },
-              }}
-              className="grid md:grid-cols-2 gap-10 lg:gap-14"
+              transition={{ x: { type: "spring", stiffness: 260, damping: 30 }, opacity: { duration: 0.3 } }}
+              className="grid md:grid-cols-2 gap-8"
             >
               {filteredProjects.map((project, index) => (
                 <ProjectCard key={project.id} project={project} index={index} />
@@ -209,21 +154,18 @@ const Projects: React.FC = () => {
           </AnimatePresence>
         </div>
 
-        <div className="mt-20 flex justify-center items-center gap-4">
-          <div
-            className={`w-2 h-2 rounded-full transition-all duration-500 ${
-              activeTab === "web"
-                ? "w-8 bg-editorial-ink dark:bg-cyan-500"
-                : "bg-editorial-pebble dark:bg-obsidian-700"
-            }`}
-          />
-          <div
-            className={`w-2 h-2 rounded-full transition-all duration-500 ${
-              activeTab === "mobile"
-                ? "w-8 bg-editorial-ink dark:bg-cyan-500"
-                : "bg-editorial-pebble dark:bg-obsidian-700"
-            }`}
-          />
+        {/* Dots */}
+        <div className="mt-14 flex justify-center gap-2">
+          {(["web", "mobile"] as const).map((tab) => (
+            <button key={tab} onClick={() => toggleTab(tab)}
+              className="rounded-full transition-all duration-400"
+              style={{
+                width: activeTab === tab ? "2.5rem" : "0.5rem",
+                height: "0.5rem",
+                background: activeTab === tab ? "#ffffff" : "rgba(255,255,255,0.15)",
+              }}
+            />
+          ))}
         </div>
       </div>
     </section>

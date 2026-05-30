@@ -1,33 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Boma George | Professional Developer</title>
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/images/hero-video.mp4" as="video" type="video/mp4" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
+    <title>Boma George | Developer Portfolio</title>
+    <meta name="description" content="Boma George — Frontend Developer crafting sleek, high-performance digital experiences where logic meets beauty." />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
-        darkMode: "class",
         theme: {
           extend: {
-            colors: {
-              // Professional Light Mode Palette
-              editorial: {
-                base: "#FDFBF7", // Warm Ivory
-                ink: "#1A1A1A", // Deep Charcoal
-                slate: "#454545", // Muted Text
-                pebble: "#E5E1DA", // Elegant Borders
-              },
-              obsidian: {
-                950: "#08080a",
-                900: "#0d0d12",
-                800: "#16161e",
-                700: "#22222e",
-              },
-              brand: {
-                cyan: "#06b6d4",
-                purple: "#a855f7",
-              },
+            fontFamily: {
+              sans: ["Montserrat", "system-ui", "sans-serif"],
+              heading: ["Sora", "sans-serif"],
             },
           },
         },
@@ -36,49 +26,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Sora:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Sora:wght@300;400;600;700;800;900&display=swap"
       rel="stylesheet"
     />
     <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       body {
         font-family: "Montserrat", system-ui, sans-serif;
-        scroll-behavior: smooth;
-        transition: background-color 0.5s ease, color 0.5s ease;
+        background: #111111;
+        color: #ffffff;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
       }
-      h1,
-      h2,
-      h3,
-      .font-heading {
-        font-family: "Sora", sans-serif;
-      }
-      .bg-soft-gradient {
-        background: radial-gradient(
-          circle at top right,
-          #fdfbf7 0%,
-          #f5f2ed 100%
-        );
-      }
-      .dark .bg-soft-gradient {
-        background: radial-gradient(
-          circle at top left,
-          #0d0d12 0%,
-          #08080a 100%
-        );
-      }
-      .glass-card {
-        background: rgba(255, 255, 255, 0.4);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(229, 225, 218, 0.8);
-      }
-      .dark .glass-card {
-        background: rgba(22, 22, 30, 0.6);
-        border: 1px solid rgba(168, 85, 247, 0.15);
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      }
+      h1, h2, h3, h4, h5, h6 { font-family: "Sora", sans-serif; }
+      ::-webkit-scrollbar { width: 3px; }
+      ::-webkit-scrollbar-track { background: #1a1a1a; }
+      ::-webkit-scrollbar-thumb { background: #ffffff; border-radius: 2px; }
     </style>
     <script type="importmap">
       {
@@ -93,9 +58,7 @@
     </script>
     <link rel="stylesheet" href="/index.css" />
   </head>
-  <body
-    class="bg-editorial-base dark:bg-obsidian-950 text-editorial-ink dark:text-slate-300"
-  >
+  <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

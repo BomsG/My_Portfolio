@@ -1,111 +1,113 @@
 import React, { useState, useEffect } from "react";
 import { motion as motionBase, AnimatePresence } from "framer-motion";
 const motion = motionBase as any;
-import {
-  RiMenu3Line,
-  RiCloseLine,
-  RiSunLine,
-  RiMoonLine,
-} from "react-icons/ri";
+import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 
-interface NavbarProps {
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode }) => {
+const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
+    { name: "About", href: "about" },
+    { name: "Skills", href: "skills" },
+    { name: "Projects", href: "projects" },
   ];
+
+  const NAVBAR_HEIGHT = 72; // px — matches the fixed nav bar height
+
+  const handleNav = (id: string) => {
+    setIsMobileMenuOpen(false);
+    
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT;
+      window.scrollTo({ top, behavior: "smooth" });
+    }, 100);
+  };
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      style={
         isScrolled
-          ? "py-4 bg-white/90 dark:bg-obsidian-900/90 backdrop-blur-md shadow-sm border-b border-editorial-pebble dark:border-obsidian-700"
-          : "py-6 bg-transparent"
-      }`}
+          ? {
+              paddingTop: "12px",
+              paddingBottom: "12px",
+              background: "rgba(10,10,10,0.95)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              borderBottom: "1px solid rgba(255,255,255,0.08)",
+              boxShadow: "0 4px 30px rgba(0,0,0,0.4)",
+            }
+          : {
+              paddingTop: "28px",
+              paddingBottom: "28px",
+              background: "transparent",
+            }
+      }
     >
-      <div className="container mx-auto px-6 flex justify-between items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
+      <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
+
+        {/* Logo */}
+        <motion.button
+          initial={{ opacity: 0, x: -16 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-lg font-bold tracking-widest uppercase text-editorial-ink dark:text-cyan-400"
+          transition={{ duration: 0.6 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="font-black text-xl tracking-[-0.04em] select-none text-white transition-opacity hover:opacity-70"
+          style={{ fontFamily: "'Sora', sans-serif" }}
         >
-          Boma George
-        </motion.div>
+          BG<span style={{ opacity: 0.25 }}>.</span>
+        </motion.button>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-10">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="hidden md:flex items-center gap-10"
+        >
           {navLinks.map((link) => (
-            <motion.a
+            <button
               key={link.name}
-              href={link.href}
-              whileHover={{ scale: 1.05, color: "#000" }}
-              className="text-[10px] font-bold uppercase tracking-widest text-editorial-slate dark:text-slate-400 transition-colors"
+              onClick={() => handleNav(link.href)}
+              className="relative group text-[10px] font-black uppercase tracking-[0.22em] transition-colors duration-200"
+              style={{ color: "rgba(255,255,255,0.45)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,255,255,1)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
             >
               {link.name}
-            </motion.a>
+              <span
+                className="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-white group-hover:w-full transition-all duration-300 rounded-full"
+              />
+            </button>
           ))}
 
-          <button
-            onClick={toggleDarkMode}
-            className="p-2 rounded-full hover:bg-editorial-pebble dark:hover:bg-obsidian-700 transition-colors"
-            aria-label="Toggle Dark Mode"
-          >
-            {isDarkMode ? (
-              <RiSunLine size={20} color="#26C6DA " />
-            ) : (
-              <RiMoonLine size={20} color="#26C6DA " />
-            )}
-          </button>
-
-          <motion.a
-            href="#contact"
+          <motion.button
+            onClick={() => handleNav("contact")}
             whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-6 py-2 rounded-lg bg-editorial-ink dark:bg-cyan-500 text-white text-[10px] font-bold uppercase tracking-widest transition-all"
+            whileTap={{ scale: 0.96 }}
+            className="px-6 py-2.5 bg-white text-black text-[10px] font-black uppercase tracking-[0.2em] rounded-full hover:bg-white/85 transition-all duration-200"
           >
-            Contact
-          </motion.a>
-        </div>
+            Hire me
+          </motion.button>
+        </motion.div>
 
         {/* Mobile Toggle */}
-        <div className="flex items-center gap-4 md:hidden">
-          <button
-            onClick={toggleDarkMode}
-            className="p-2 rounded-full hover:bg-editorial-pebble dark:hover:bg-obsidian-700 transition-colors"
-          >
-            {isDarkMode ? (
-              <RiSunLine size={20} color="#26C6DA " />
-            ) : (
-              <RiMoonLine size={20} color="#26C6DA " />
-            )}
-          </button>
-          <button
-            className="text-editorial-ink dark:text-slate-200"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? (
-              <RiCloseLine size={26} />
-            ) : (
-              <RiMenu3Line size={26} />
-            )}
-          </button>
-        </div>
+        <button
+          className="md:hidden p-1 text-white transition-opacity hover:opacity-70"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? <RiCloseLine size={26} /> : <RiMenu3Line size={26} />}
+        </button>
       </div>
 
       {/* Mobile Menu */}
@@ -115,19 +117,27 @@ const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode }) => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-editorial-base dark:bg-obsidian-900 border-b border-editorial-pebble dark:border-obsidian-700 overflow-hidden"
+            transition={{ duration: 0.3 }}
+            className="md:hidden overflow-hidden"
+            style={{ background: "rgba(10,10,10,0.98)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}
           >
-            <div className="flex flex-col p-8 space-y-6">
+            <div className="flex flex-col p-8 gap-6">
               {navLinks.map((link) => (
-                <a
+                <button
                   key={link.name}
-                  href={link.href}
-                  className="text-xs font-bold uppercase tracking-widest text-editorial-ink dark:text-slate-200"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => handleNav(link.href)}
+                  className="text-left text-sm font-black uppercase tracking-[0.22em] transition-colors"
+                  style={{ color: "rgba(255,255,255,0.45)" }}
                 >
                   {link.name}
-                </a>
+                </button>
               ))}
+              <button
+                onClick={() => handleNav("contact")}
+                className="w-fit px-6 py-3 bg-white text-black text-[10px] font-black uppercase tracking-[0.2em] rounded-full"
+              >
+                Hire me
+              </button>
             </div>
           </motion.div>
         )}
