@@ -46,7 +46,7 @@ const Hero: React.FC<HeroProps> = ({ setActiveSection, isReady }) => {
         {/* Badge */}
         <motion.div {...fadeUp(0)} className="mb-8">
           <span
-            className="inline-flex items-center gap-2 text-[12px] md:text-[16px] font-semibold uppercase tracking-[0.24em] px-4 py-2 rounded-full"
+            className="inline-flex items-center gap-2 text-[10px] md:text-[16px] font-semibold uppercase tracking-[0.24em] px-4 py-2 rounded-full"
             style={{
               border: "1.5px solid rgba(0,0,0,0.25)",
               color: "rgba(0,0,0,0.65)",
