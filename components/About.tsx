@@ -4,7 +4,7 @@ const motion = motionBase as any;
 
 const About: React.FC = () => {
   return (
-    <section id="about" className="py-32 px-6" style={{ background: "#161616" }}>
+    <section id="about" className="py-32 px-6" style={{ background: "#F5FFFF" }}>
       <div className="container mx-auto max-w-6xl">
         <div className="grid lg:grid-cols-5 gap-16 items-center">
 
@@ -33,7 +33,7 @@ const About: React.FC = () => {
               className="absolute -bottom-5 -right-4 lg:-right-6 text-white rounded-3xl px-7 py-5 shadow-2xl"
               style={{ background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.08)" }}
             >
-              <div className="text-4xl font-black leading-none" style={{ fontFamily: "'Sora', sans-serif" }}>20+</div>
+              <div className="text-4xl font-black leading-none" style={{ fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif" }}>20+</div>
               <div className="text-[9px] font-black uppercase tracking-[0.25em] text-white/35 mt-1">Projects</div>
             </motion.div>
           </motion.div>
@@ -50,7 +50,7 @@ const About: React.FC = () => {
               <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/25 mb-4">My Philosophy</p>
               <h2
                 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.0] tracking-[-0.03em]"
-                style={{ fontFamily: "'Sora', sans-serif" }}
+                style={{ fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif" }}
               >
                 Good enough<br />is never enough.
               </h2>
@@ -82,7 +82,7 @@ const About: React.FC = () => {
                 { num: "100%", label: "Dedication" },
               ].map((s) => (
                 <div key={s.label}>
-                  <div className="text-3xl font-black text-white" style={{ fontFamily: "'Sora', sans-serif" }}>{s.num}</div>
+                  <div className="text-3xl font-black text-white" style={{ fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif" }}>{s.num}</div>
                   <div className="text-[9px] font-black uppercase tracking-[0.25em] mt-1" style={{ color: "rgba(255,255,255,0.3)" }}>{s.label}</div>
                 </div>
               ))}

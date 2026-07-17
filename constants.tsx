@@ -65,15 +65,15 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 4,
-    title: "RISTORANTÈ",
+    title: "BANLEO",
     category: "web",
-    problem: "A modern Restaurant website ",
+    problem: "Modern brands need a highly visual, immersive digital showroom that conveys elegance and brand storytelling.",
     solution:
-      "RISTORANTÈ is a modern restaurant platform where users can browse menus, book reservations, and connect seamlessly with delivery services and dispatchers for a complete dining experience.",
-    tech: ["Nextjs", "TypeScript", "nodejs", "Mongodb"],
-    liveUrl: "https://ristorant.vercel.app/",
-    githubUrl: "https://github.com/BomsG/-RISTORANT-",
-    image: "/images/p4.png",
+      "Banleo is a premium, high-contrast digital showroom designed for contemporary fashion and lifestyle brands, featuring dynamic scroll-triggered layouts and a seamless visual narrative.",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    liveUrl: "https://banleo.vercel.app/",
+    githubUrl: "https://github.com/BomsG/Banleo.git",
+    image: "/images/banleo.png",
   },
   {
     id: 5,

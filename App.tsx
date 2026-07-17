@@ -20,7 +20,7 @@ const App: React.FC = () => {
   return (
     <>
       <CurtainLoader onComplete={handleCurtainComplete} />
-      <div className="min-h-screen selection:bg-white selection:text-black overflow-x-hidden" style={{ background: "#111111" }}>
+      <div className="min-h-screen selection:bg-black selection:text-white overflow-x-hidden" style={{ background: "#F5FFFF" }}>
         <Navbar />
         <main>
           <Hero setActiveSection={setActiveSection} isReady={isReady} />

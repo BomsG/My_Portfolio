@@ -1,319 +1,192 @@
-import React, { useEffect, useState, useRef } from "react";
-import { motion as motionBase, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion as motionBase } from "framer-motion";
 const motion = motionBase as any;
-import {
-  RiArrowRightLine,
-  RiGithubFill,
-  RiLinkedinBoxFill,
-  RiTwitterXFill,
-  RiArrowDownLine,
-  RiSkipDownLine,
-} from "react-icons/ri";
+import { RiArrowRightUpLine } from "react-icons/ri";
 
 interface HeroProps {
   setActiveSection: (section: string) => void;
   isReady: boolean;
 }
 
-// ── Cinematic reveal timings (ms after isReady) ───────────────────────────
-const TIMINGS = [
-  300,   // phase 1 — greeting line
-  1000,  // phase 2 — name
-  2000,  // phase 3 — typed role
-  3100,  // phase 4 — description
-  4000,  // phase 5 — CTAs
-  4700,  // phase 6 — socials
-  5200,  // phase 7 — stats bar
-];
-
 const Hero: React.FC<HeroProps> = ({ setActiveSection, isReady }) => {
-  const [phase, setPhase] = useState(0);
-  const [revealed, setRevealed] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // Typed text state
-  const [typedText, setTypedText] = useState("");
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const roles = ["Frontend Developer", "Web Developer", "Mobile Developer"];
-  const cursorRef = useRef<HTMLSpanElement>(null);
-
-  // ── Sequential phase reveal ──────────────────────────────────────────────
   useEffect(() => {
-    if (!isReady || revealed) return;
-    const timers = TIMINGS.map((delay, i) =>
-      setTimeout(() => setPhase(i + 1), delay)
-    );
-    return () => timers.forEach(clearTimeout);
-  }, [isReady, revealed]);
-
-  // "See all" instantly jumps to full layout
-  const handleRevealAll = () => {
-    setRevealed(true);
-    setPhase(99);
-  };
-
-  // ── Typed text (starts at phase 3) ──────────────────────────────────────
-  const typingActive = phase >= 3;
-  const typingSpeed = isDeleting ? 45 : 88;
-  useEffect(() => {
-    if (!typingActive) return;
-    let timeout: any;
-    const currentRole = roles[roleIndex];
-    if (!isDeleting && typedText === currentRole) {
-      timeout = setTimeout(() => setIsDeleting(true), 2400);
-    } else if (isDeleting && typedText === "") {
-      setIsDeleting(false);
-      setRoleIndex((prev) => (prev + 1) % roles.length);
-    } else {
-      timeout = setTimeout(() => {
-        setTypedText(
-          isDeleting
-            ? currentRole.substring(0, typedText.length - 1)
-            : currentRole.substring(0, typedText.length + 1)
-        );
-      }, typingSpeed);
+    if (isReady) {
+      const t = setTimeout(() => setMounted(true), 200);
+      return () => clearTimeout(t);
     }
-    return () => clearTimeout(timeout);
-  }, [typedText, isDeleting, roleIndex, typingActive]);
-
-  // Cursor blink
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (cursorRef.current)
-        cursorRef.current.style.opacity =
-          cursorRef.current.style.opacity === "0" ? "1" : "0";
-    }, 520);
-    return () => clearInterval(interval);
-  }, []);
+  }, [isReady]);
 
   const navTo = (id: string) => {
     setActiveSection(id);
     const el = document.getElementById(id);
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - 72;
+    const top = el.getBoundingClientRect().top + window.scrollY - 88;
     window.scrollTo({ top, behavior: "smooth" });
   };
 
-  // Helper — is this phase visible?
-  const show = (n: number) => phase >= n;
-
-  // Shared slide-up animation
-  const reveal = (delay = 0) => ({
-    initial: { opacity: 0, y: 36, filter: "blur(6px)" },
-    animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-    transition: { duration: 0.95, ease: [0.22, 1, 0.36, 1], delay },
+  const fadeUp = (delay = 0) => ({
+    initial: { opacity: 0, y: 24 },
+    animate: mounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 },
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1], delay },
   });
 
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden flex flex-col">
+    <section
+      id="home"
+      className="relative flex flex-col lg:flex-row overflow-hidden"
+      style={{ background: "#F5FFFF", minHeight: "100vh" }}
+    >
+      {/* ── LEFT COLUMN — 55% width ── */}
+      <div
+        className="lg:w-[55%] flex flex-col justify-center px-8 sm:px-14 lg:px-16 xl:px-20"
+        style={{ paddingTop: "calc(88px + 3rem)", paddingBottom: "3rem" }}
+      >
+        {/* Badge */}
+        <motion.div {...fadeUp(0)} className="mb-8">
+          <span
+            className="inline-flex items-center gap-2 text-[12px] md:text-[16px] font-semibold uppercase tracking-[0.24em] px-4 py-2 rounded-full"
+            style={{
+              border: "1.5px solid rgba(0,0,0,0.25)",
+              color: "rgba(0,0,0,0.65)",
+              background: "transparent",
+              fontFamily: "'Montserrat', sans-serif",
+            }}
+          >
+            3+ Years · Software Developer
+          </span>
+        </motion.div>
 
-      {/* ── Full-screen Video ── */}
-      <div className="absolute inset-0 z-0">
-        <video
-          autoPlay muted loop playsInline
-          preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: "brightness(0.52) saturate(0.65)", willChange: "transform" }}
-        >
-          <source src="/images/hero-video.mp4" type="video/mp4" />
-        </video>
-        {/* Bottom white fade into next section */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.04) 55%, rgba(22, 20, 20, 1) 100%)",
-          }}
-        />
-      </div>
-
-      {/* ── Content Layer ── */}
-      <div className="relative z-10 flex-1 flex flex-col container mx-auto px-6 lg:px-20 pt-40 pb-10">
-        <div className="flex-1 flex flex-col justify-center max-w-3xl gap-0">
-
-          {/* Phase 1 — greeting badge */}
-          <AnimatePresence>
-            {show(1) && (
-              <motion.div
-                key="badge"
-                {...reveal()}
-                className="mb-8"
-              >
-                <span className="inline-flex items-center gap-2 border border-white/25 rounded-full py-1.5 px-5 text-[10px] font-black uppercase tracking-[0.3em] text-white/70 bg-white/8 backdrop-blur-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                  Available for work 
-                </span>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Phase 2 — Name */}
-          <AnimatePresence>
-            {show(2) && (
-              <motion.h1
-                key="name"
-                {...reveal()}
-                className="font-black text-white leading-[0.88] tracking-[-0.04em] mb-8 "
+        {/* Headline */}
+        <motion.div {...fadeUp(0.1)} className="mb-6">
+          <h1
+            className="font-compressed font-black leading-[1.05]"
+            style={{
+              fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, 'Franklin Gothic Condensed', sans-serif",
+              fontStretch: "condensed",
+              fontSize: "clamp(2.2rem, 3.8vw, 3.6rem)",
+              color: "#0a0a0a",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            {/* Line 1 */}
+            <span className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-1">
+              YOUR{" "}
+              <span
+                className="inline-flex items-center px-5 py-1 rounded-full"
                 style={{
-                  fontFamily: "'Sora', sans-serif",
-                  fontSize: "clamp(3.6rem, 10vw, 8.5rem)",
+                  background: "#94FFFF",
+
+                  border: "2px solid #344646",
+                  boxShadow: "4px 8px 0px 0px #344646",
+                  lineHeight: 1.2,
+                  fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif",
+                  fontStretch: "condensed",
                 }}
               >
-                Boma<br />George
-                <motion.span
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
-                  className="block h-[5px] w-28 bg-white rounded-full mt-4 origin-left"
-                />
-              </motion.h1>
-            )}
-          </AnimatePresence>
-
-          {/* Phase 3 — Typed role */}
-          <AnimatePresence>
-            {show(3) && (
-              <motion.div key="role" {...reveal()} className="flex items-center gap-1 mb-8 h-10">
-                <span className="text-2xl md:text-3xl font-light text-white/55 tracking-wide">
-                  {typedText}
-                </span>
-                <span
-                  ref={cursorRef}
-                  className="inline-block w-[2px] h-7 bg-white/60 ml-0.5"
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Phase 4 — Description */}
-          <AnimatePresence>
-            {show(4) && (
-              <motion.p
-                key="desc"
-                {...reveal()}
-                className="text-base md:text-lg text-white/45 mb-12 max-w-lg leading-[1.85] font-light"
+                PRODUCT
+              </span>{" "}
+              DESERVES
+            </span>
+            {/* Line 2 */}
+            <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              MORE THAN JUST{" "}
+              <span
+                className="inline-flex items-center px-5 py-1 rounded-full"
+                style={{
+                  background: "#F472B6",
+                  color: "#0a0a0a",
+                  border: "2px solid #344646",
+                  boxShadow: "4px 8px 0px 0px #344646",
+                  lineHeight: 1.2,
+                  fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif",
+                  fontStretch: "condensed",
+                }}
               >
-                Crafting sleek, high-performance digital experiences where logic
-                meets beauty — every design, a statement.
-              </motion.p>
-            )}
-          </AnimatePresence>
+                CODE
+              </span>
+              .
+            </span>
+          </h1>
+        </motion.div>
 
-          {/* Phase 5 — CTAs */}
-          <AnimatePresence>
-            {show(5) && (
-              <motion.div key="ctas" {...reveal()} className="flex flex-wrap gap-4 mb-12">
-                <motion.button
-                  onClick={() => navTo("contact")}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-[11px] font-black uppercase tracking-[0.22em] rounded-full shadow-[0_8px_32px_rgba(255,255,255,0.2)] hover:bg-white/90 transition-all duration-300"
-                >
-                  Start a project
-                  <span className="group-hover:translate-x-1 transition-transform inline-block">
-                    <RiArrowRightLine size={14} />
-                  </span>
-                </motion.button>
-                <motion.button
-                  onClick={() => navTo("projects")}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 px-8 py-4 border border-white/30 text-white text-[11px] font-black uppercase tracking-[0.22em] rounded-full backdrop-blur-sm hover:bg-white/10 hover:border-white/60 transition-all duration-300"
-                >
-                  View works
-                </motion.button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+        {/* Description */}
+        <motion.p
+          {...fadeUp(0.2)}
+          className="mb-10 leading-[1.85] text-sm max-w-[420px]"
+          style={{ color: "rgba(0,0,0,0.55)", fontFamily: "'Montserrat', sans-serif" }}
+        >
+          Hi i'm{" "}
+          <strong style={{ color: "#0a0a0a", fontWeight: 700 }}>Boma.</strong>{" "}
+          I help startups and businesses turn ideas into fast, scalable web
+          and mobile applications that users enjoy.
+        </motion.p>
 
-          {/* Phase 6 — Socials */}
-          <AnimatePresence>
-            {show(6) && (
-              <motion.div key="socials" {...reveal()} className="flex items-center gap-5">
-                <span className="text-[9px] font-black uppercase tracking-[0.32em] text-white/30">Follow</span>
-                <div className="w-8 h-[1px] bg-white/15" />
-                {[
-                  { icon: <RiGithubFill size={18} />, href: "https://github.com/BomsG", label: "GitHub" },
-                  { icon: <RiLinkedinBoxFill size={18} />, href: "https://www.linkedin.com/in/boma-george-03b961260/", label: "LinkedIn" },
-                  { icon: <RiTwitterXFill size={18} />, href: "https://twitter.com", label: "Twitter" },
-                ].map((s, i) => (
-                  <motion.a
-                    key={i}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={s.label}
-                    whileHover={{ y: -3, scale: 1.15 }}
-                    className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/35 hover:text-white hover:border-white/60 hover:bg-white/8 backdrop-blur-sm transition-all duration-200"
-                  >
-                    {s.icon}
-                  </motion.a>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+        {/* CTAs */}
+        <motion.div {...fadeUp(0.3)} className="flex flex-wrap gap-4">
+          {/* Primary CTA */}
+          <motion.button
+            onClick={() => navTo("contact")}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-[11px] font-black uppercase tracking-[0.16em]"
+            style={{
+              background: "#00C5BE",
+              color: "#0a0a0a",
+              fontFamily: "'Sora', sans-serif",
+              border: "2px solid #344646",
+              boxShadow: "4px 8px 0px 0px #344646",
+            }}
+          >
+            Let's Build Something
+            <RiArrowRightUpLine size={14} />
+          </motion.button>
 
-        {/* ── Stats bar — Phase 7 ── */}
-        <AnimatePresence>
-          {show(7) && (
-            <motion.div
-              key="stats"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pb-4"
-            >
-              <div className="flex items-center gap-12">
-                {[
-                  { num: "20+", label: "Projects" },
-                  { num: "2+", label: "Years" },
-                  { num: "100%", label: "Success" },
-                ].map((s) => (
-                  <div key={s.label}>
-                    <div className="text-3xl font-black text-white tracking-tight" style={{ fontFamily: "'Sora', sans-serif" }}>{s.num}</div>
-                    <div className="text-[9px] font-black uppercase tracking-[0.25em] text-white/35 mt-0.5">{s.label}</div>
-                  </div>
-                ))}
-              </div>
-              <button
-                onClick={() => navTo("skills")}
-                className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.3em] text-white/35 hover:text-white/70 transition-colors"
-              >
-                Scroll to explore
-                <motion.span animate={{ y: [0, 6, 0] }} transition={{ duration: 1.8, repeat: Infinity }}>
-                  <RiArrowDownLine size={16} />
-                </motion.span>
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          {/* Secondary CTA */}
+          <motion.button
+            onClick={() => navTo("projects")}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-[11px] font-black uppercase tracking-[0.16em]"
+            style={{
+              background: "transparent",
+              color: "#0a0a0a",
+              border: "2px solid #344646",
+              boxShadow: "4px 8px 0px 0px #344646",
+              fontFamily: "'Sora', sans-serif",
+            }}
+          >
+            View Projects
+            <RiArrowRightUpLine size={14} />
+          </motion.button>
+        </motion.div>
       </div>
 
-      {/* ── "See all" floating pill — appears after phase 2 but before full reveal ── */}
-      <AnimatePresence>
-        {show(2) && !show(7) && !revealed && (
-          <motion.button
-            key="see-all"
-            initial={{ opacity: 0, y: 16, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.95, transition: { duration: 0.3 } }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            onClick={handleRevealAll}
-            whileHover={{ scale: 1.06, backgroundColor: "rgba(255,255,255,0.18)" }}
-            whileTap={{ scale: 0.95 }}
-            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5 px-6 py-3 rounded-full border border-white/25 bg-white/10 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-[0.25em] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300"
-          >
-            <RiSkipDownLine size={14} />
-            See all
-            <motion.span
-              animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-1.5 h-1.5 rounded-full bg-white"
-            />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      {/* ── RIGHT COLUMN — full-width natural on mobile, 45% absolute on desktop ── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={mounted ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+        className="relative w-full lg:w-[45%] overflow-hidden lg:min-h-0"
+        style={{ minHeight: undefined }}
+      >
+        {/* Mobile: natural flow, full width, no forced height */}
+        <img
+          src="/images/heroN.png"
+          alt="Boma George — 3D avatar"
+          className="block w-full h-auto select-none lg:hidden"
+          draggable={false}
+        />
+        {/* Desktop: cover fill, anchored top — edge-to-edge, no gap */}
+        <img
+          src="/images/heroN.png"
+          alt=""
+          aria-hidden="true"
+          className="hidden lg:block lg:absolute lg:inset-0 lg:w-full lg:h-full lg:object-cover lg:object-top select-none"
+          draggable={false}
+        />
+      </motion.div>
     </section>
   );
 };

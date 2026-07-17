@@ -43,7 +43,7 @@ export const ContactSection: React.FC = () => {
     focusedField === name ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.1)";
 
   return (
-    <section id="contact" className="py-32 px-6" style={{ background: "#111111" }}>
+    <section id="contact" className="py-32 px-6" style={{ background: "#F5FFFF" }}>
       <div className="container mx-auto max-w-6xl">
 
         {/* Header */}
@@ -57,7 +57,7 @@ export const ContactSection: React.FC = () => {
           <p className="text-[10px] font-black uppercase tracking-[0.4em] mb-3"
             style={{ color: "rgba(255,255,255,0.25)" }}>Let's Talk</p>
           <h2 className="text-5xl md:text-6xl font-black text-white leading-none tracking-[-0.03em]"
-            style={{ fontFamily: "'Sora', sans-serif" }}>
+            style={{ fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif" }}>
             Get in Touch.
           </h2>
           <p className="text-base font-light mt-5 max-w-md leading-relaxed"
@@ -138,7 +138,7 @@ export const ContactSection: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
                   </svg>
                 </motion.div>
-                <h4 className="text-2xl font-black text-white mb-2" style={{ fontFamily: "'Sora', sans-serif" }}>Message Sent!</h4>
+                <h4 className="text-2xl font-black text-white mb-2" style={{ fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif" }}>Message Sent!</h4>
                 <p className="font-light" style={{ color: "rgba(255,255,255,0.38)" }}>Thank you — I'll get back to you soon.</p>
               </div>
             ) : (

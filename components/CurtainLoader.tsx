@@ -165,7 +165,7 @@ const CurtainLoader: React.FC<CurtainLoaderProps> = ({ onComplete }) => {
             >
               <div
                 className="font-black leading-none"
-                style={{ fontSize: "clamp(4rem,12vw,7.5rem)", fontFamily: "'Sora',sans-serif", letterSpacing: "-0.04em" }}
+                style={{ fontSize: "clamp(4rem,12vw,7.5rem)", fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif", letterSpacing: "-0.04em" }}
               >
                 BG
               </div>

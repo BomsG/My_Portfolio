@@ -1,148 +1,204 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion as motionBase, AnimatePresence } from "framer-motion";
 const motion = motionBase as any;
-import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
+import { RiMenu3Line, RiCloseLine, RiGithubFill } from "react-icons/ri";
 
 const Navbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const navLinks = [
-    { name: "About", href: "about" },
-    { name: "Skills", href: "skills" },
-    { name: "Projects", href: "projects" },
+    { name: "Home", href: "home" },
+    { name: "Selected Works", href: "projects" },
+    { name: "About Me", href: "about" },
+    { name: "Resume", href: "contact" },
   ];
-
-  const NAVBAR_HEIGHT = 72; // px — matches the fixed nav bar height
 
   const handleNav = (id: string) => {
     setIsMobileMenuOpen(false);
-    
     setTimeout(() => {
       const el = document.getElementById(id);
       if (!el) return;
-      const top = el.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT;
+      const top = el.getBoundingClientRect().top + window.scrollY - 88;
       window.scrollTo({ top, behavior: "smooth" });
     }, 100);
   };
 
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-      style={
-        isScrolled
-          ? {
-              paddingTop: "12px",
-              paddingBottom: "12px",
-              background: "rgba(10,10,10,0.95)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              borderBottom: "1px solid rgba(255,255,255,0.08)",
-              boxShadow: "0 4px 30px rgba(0,0,0,0.4)",
-            }
-          : {
-              paddingTop: "28px",
-              paddingBottom: "28px",
-              background: "transparent",
-            }
-      }
-    >
-      <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
-
-        {/* Logo */}
-        <motion.button
-          initial={{ opacity: 0, x: -16 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="font-black text-xl tracking-[-0.04em] select-none text-white transition-opacity hover:opacity-70"
-          style={{ fontFamily: "'Sora', sans-serif" }}
-        >
-          BG<span style={{ opacity: 0.25 }}>.</span>
-        </motion.button>
-
-        {/* Desktop Nav */}
+    <>
+      {/* Desktop Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 px-5 pt-4 pb-2 hidden lg:block ">
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="hidden md:flex items-center gap-10"
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-7xl mx-auto flex items-center justify-between px-3 py-5 rounded-full"
+          style={{
+            background: "#EBFFFF",
+            border: "2px solid #344646",
+            boxShadow: "4px 8px 0px 0px #344646",
+          }}
         >
-          {navLinks.map((link) => (
-            <button
-              key={link.name}
-              onClick={() => handleNav(link.href)}
-              className="relative group text-[10px] font-black uppercase tracking-[0.22em] transition-colors duration-200"
-              style={{ color: "rgba(255,255,255,0.45)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,255,255,1)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
-            >
-              {link.name}
-              <span
-                className="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-white group-hover:w-full transition-all duration-300 rounded-full"
-              />
-            </button>
-          ))}
-
-          <motion.button
-            onClick={() => handleNav("contact")}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            className="px-6 py-2.5 bg-white text-black text-[10px] font-black uppercase tracking-[0.2em] rounded-full hover:bg-white/85 transition-all duration-200"
+          {/* Logo Pill */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="px-5 py-2.5 rounded-full font-black text-[20px] uppercase  text-white select-none hover:opacity-85 transition-opacity"
+            style={{ background: "#111111", fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif" }}
           >
-            Hire me
-          </motion.button>
-        </motion.div>
+            Boma George
+          </button>
 
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden p-1 text-white transition-opacity hover:opacity-70"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {isMobileMenuOpen ? <RiCloseLine size={26} /> : <RiMenu3Line size={26} />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden"
-            style={{ background: "rgba(10,10,10,0.98)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}
-          >
-            <div className="flex flex-col p-8 gap-6">
-              {navLinks.map((link) => (
-                <button
-                  key={link.name}
-                  onClick={() => handleNav(link.href)}
-                  className="text-left text-sm font-black uppercase tracking-[0.22em] transition-colors"
-                  style={{ color: "rgba(255,255,255,0.45)" }}
-                >
-                  {link.name}
-                </button>
-              ))}
+          {/* Nav Links — individual pills */}
+          <div className="flex items-center gap-2">
+            {navLinks.map((link) => (
               <button
-                onClick={() => handleNav("contact")}
-                className="w-fit px-6 py-3 bg-white text-black text-[10px] font-black uppercase tracking-[0.2em] rounded-full"
+                key={link.name}
+                onClick={() => handleNav(link.href)}
+                className="px-4 py-2 rounded-full text-[18px] font-medium transition-all duration-200 hover:bg-black/5"
+                style={{
+                  border: "1.5px solid rgba(0,0,0,0.18)",
+                  color: "#111111",
+                  fontFamily: "'Montserrat', sans-serif",
+                }}
               >
-                Hire me
+                {link.name}
               </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+            ))}
+          </div>
+
+          {/* Right — Avatar + Hire Me */}
+          <div className="flex items-center gap-3">
+            {/* GitHub icon — solid pink circle with matching nav shadow */}
+            <a
+              href="https://github.com/BomsG"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 transition-opacity hover:opacity-85"
+              style={{
+                background: "#FF00CC",
+                border: "2px solid #344646",
+                boxShadow: "4px 8px 0px 0px #344646",
+              }}
+            >
+              <RiGithubFill size={22} color="#ffffff" />
+            </a>
+
+            {/* Hire Me */}
+            <motion.button
+              onClick={() => handleNav("contact")}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              className="px-6 py-2.5 rounded-full font-black text-[11px] uppercase tracking-[0.16em] text-black"
+              style={{
+                background: "#00E5D4",
+                fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif",
+                border: "2px solid #344646",
+                boxShadow: "4px 8px 0px 0px #344646",
+              }}
+            >
+              Hire Me
+            </motion.button>
+          </div>
+        </motion.div>
+      </nav>
+
+      {/* Mobile Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 lg:hidden px-4 pt-3 pb-2">
+        {/* Top bar — always visible */}
+        <div
+          className="flex items-center justify-between px-3 py-2.5 rounded-full"
+          style={{
+            background: "#EBFFFF",
+            border: "2px solid #344646",
+            boxShadow: "4px 8px 0px 0px #344646",
+          }}
+        >
+          {/* Logo */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="px-4 py-2 rounded-full font-black text-[11px] uppercase tracking-[0.18em] text-white"
+            style={{ background: "#111111", fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif" }}
+          >
+            Boma George
+          </button>
+
+          {/* Right side — Hire Me + hamburger */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => handleNav("contact")}
+              className="px-6 py-2.5 rounded-full font-black text-[11px] uppercase tracking-[0.16em] text-black"
+              style={{
+                background: "#00E5D4",
+                fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif",
+                border: "2px solid #344646",
+                boxShadow: "4px 8px 0px 0px #344646",
+              }}
+            >
+              Hire Me
+            </button>
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="w-9 h-9 rounded-full flex items-center justify-center text-black transition-colors hover:bg-black/5"
+              style={{ border: "1.5px solid rgba(0,0,0,0.18)" }}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <RiCloseLine size={18} /> : <RiMenu3Line size={18} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Dropdown — Home, Selected Works, About Me */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.97 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-2 rounded-2xl overflow-hidden"
+              style={{
+                background: "#EBFFFF",
+                border: "2px solid #344646",
+                boxShadow: "4px 8px 0px 0px #344646",
+              }}
+            >
+              <div className="flex flex-col p-4 gap-2">
+                {navLinks
+                  .filter((l) => l.name !== "Resume")
+                  .map((link) => (
+                    <button
+                      key={link.name}
+                      onClick={() => handleNav(link.href)}
+                      className="text-left text-sm font-medium px-4 py-3 rounded-full w-full transition-colors hover:bg-black/5"
+                      style={{
+                        border: "1.5px solid rgba(0,0,0,0.18)",
+                        color: "#111111",
+                        fontFamily: "'Montserrat', sans-serif",
+                      }}
+                    >
+                      {link.name}
+                    </button>
+                  ))}
+
+                {/* GitHub button */}
+                <a
+                  href="https://github.com/BomsG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 transition-opacity hover:opacity-85"
+                  style={{
+                    background: "#FF00CC",
+                    border: "2px solid #344646",
+                    boxShadow: "4px 8px 0px 0px #344646",
+                  }}
+                >
+                  <RiGithubFill size={22} color="#ffffff" />
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </>
   );
 };
 

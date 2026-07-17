@@ -5,7 +5,7 @@ import { VALUES } from "../constants";
 
 const Values: React.FC = () => {
   return (
-    <section className="py-32 px-6" style={{ background: "#161616" }}>
+    <section className="py-32 px-6" style={{ background: "#F5FFFF" }}>
       <div className="container mx-auto max-w-6xl">
 
         <motion.div
@@ -19,7 +19,7 @@ const Values: React.FC = () => {
             <p className="text-[10px] font-black uppercase tracking-[0.4em] mb-3"
               style={{ color: "rgba(255,255,255,0.25)" }}>Why Me</p>
             <h2 className="text-5xl md:text-6xl font-black text-white leading-none tracking-[-0.03em]"
-              style={{ fontFamily: "'Sora', sans-serif" }}>
+              style={{ fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif" }}>
               What I bring<br />to your team.
             </h2>
           </div>
@@ -44,7 +44,7 @@ const Values: React.FC = () => {
               {/* Large decorative index */}
               <span
                 className="absolute top-5 right-7 text-7xl font-black leading-none select-none"
-                style={{ color: "rgba(255,255,255,0.04)", fontFamily: "'Sora', sans-serif" }}
+                style={{ color: "rgba(255,255,255,0.04)", fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif" }}
               >
                 {String(index + 1).padStart(2, "0")}
               </span>
@@ -54,7 +54,7 @@ const Values: React.FC = () => {
                 {value.icon}
               </div>
               <h3 className="text-lg font-black text-white mb-3 tracking-tight transition-colors duration-300"
-                style={{ fontFamily: "'Sora', sans-serif" }}>
+                style={{ fontFamily: "'Helvetica Compressed', 'Arial Narrow', Impact, sans-serif" }}>
                 {value.title}
               </h3>
               <p className="text-sm leading-relaxed font-light"

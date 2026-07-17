@@ -1,60 +1,75 @@
 import React from "react";
-import { motion as motionBase } from "framer-motion";
-const motion = motionBase as any;
-import { SKILLS } from "../constants";
+import {
+  RiArrowRightUpLine,
+  RiCodeSSlashLine,
+  RiGithubFill,
+  RiGlobalLine,
+  RiSmartphoneLine,
+} from "react-icons/ri";
+
+import { FaPython, FaWordpress, FaReact } from "react-icons/fa";/* ── Tick items ── */
+const techStack = [
+  { name: "Next.JS",     icon: <RiArrowRightUpLine size={18} />, iconColor: "#00C5BE" },
+  { name: "React",       icon: <RiCodeSSlashLine    size={18} />, iconColor: "#00C5BE" },
+  { name: "React Native",icon: <FaReact             size={18} />, iconColor: "#00C5BE" },
+  { name: "Typescript",  icon: <span style={{ fontSize: 14, fontWeight: 900, color: "#FF00CC" }}>TS</span>, iconColor: "#FF00CC" },
+  { name: "GIT/GitHub",  icon: <RiGithubFill        size={18} />, iconColor: "#FF00CC" },
+  { name: "Tailwind CSS",icon: <RiSmartphoneLine    size={18} />, iconColor: "#FF00CC" },
+  { name: "Rest APIs",   icon: <RiGlobalLine        size={18} />, iconColor: "#00C5BE" },
+  { name: "Python",      icon: <FaPython            size={18} />, iconColor: "#FF00CC" },
+  { name: "WordPress",   icon: <FaWordpress         size={18} />, iconColor: "#00C5BE" },
+];
+
+const Pill: React.FC<{ name: string; icon: React.ReactNode; iconColor: string }> = ({
+  name,
+  icon,
+  iconColor,
+}) => (
+  <span
+    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full whitespace-nowrap flex-shrink-0"
+    style={{
+      border: "1.5px solid #1F2828",
+      background: "transparent",
+      fontFamily: "'Montserrat', sans-serif",
+      fontSize: 14,
+      fontWeight: 500,
+      color: "#1F2828",
+    }}
+  >
+    <span style={{ color: iconColor, display: "flex", alignItems: "center" }}>{icon}</span>
+    {name}
+  </span>
+);
 
 const Skills: React.FC = () => {
   return (
-    <section id="skills" className="py-32 px-6" style={{ background: "#141313ff" }}>
-      <div className="container mx-auto max-w-6xl">
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20"
-        >
-          <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/25 mb-3">What I Use</p>
-            <h2
-              className="text-5xl md:text-6xl font-black text-white leading-none tracking-[-0.03em]"
-              style={{ fontFamily: "'Sora', sans-serif" }}
-            >
-              Core<br />Stack.
-            </h2>
-          </div>
-          <p className="text-base text-white/35 font-light leading-relaxed max-w-xs md:text-right">
-            Tools I trust to build reliable, beautiful products from frontend to backend.
-          </p>
-        </motion.div>
-
-        {/* Skills grid — gap-px on dark bg creates sleek dividers */}
-        <div
-          className="grid grid-cols-2 sm:grid-cols-4 rounded-3xl overflow-hidden"
-          style={{ gap: "1px", background: "rgba(255,255,255,0.07)" }}
-        >
-          {SKILLS.map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.07, duration: 0.5 }}
-              whileHover={{ backgroundColor: "#ffffff", color: "#0a0a0a" }}
-              className="group flex flex-col items-center justify-center gap-4 py-12 px-6 transition-all duration-300 cursor-default"
-              style={{ background: "#111111" }}
-            >
-              <div className="text-white/35 group-hover:text-black transition-colors duration-300 scale-125">
-                {skill.icon}
-              </div>
-              <span className="text-[10px] font-black uppercase tracking-[0.22em] text-white/35 group-hover:text-black/60 transition-colors duration-300 text-center">
-                {skill.name}
-              </span>
-            </motion.div>
-          ))}
-        </div>
+    <section
+      id="skills"
+      style={{
+        background: "#EBFFFF",
+        borderTop: "2px solid #1F2828",
+        borderBottom: "2px solid #1F2828",
+        minHeight: 120,
+        display: "flex",
+        alignItems: "center",
+        paddingLeft: 64,
+        paddingRight: 64,
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          flexWrap: "wrap",
+          gap: 24,
+        }}
+      >
+        {techStack.map((t) => (
+          <Pill key={t.name} {...t} />
+        ))}
       </div>
     </section>
   );

@@ -18,6 +18,7 @@
             fontFamily: {
               sans: ["Montserrat", "system-ui", "sans-serif"],
               heading: ["Sora", "sans-serif"],
+              compressed: ["'Helvetica Compressed'", "'Arial Narrow'", "Impact", "sans-serif"],
             },
           },
         },
@@ -34,13 +35,18 @@
       html { scroll-behavior: smooth; }
       body {
         font-family: "Montserrat", system-ui, sans-serif;
-        background: #111111;
-        color: #ffffff;
+        background: #F5FFFF;
+        color: #0a0a0a;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         overflow-x: hidden;
       }
       h1, h2, h3, h4, h5, h6 { font-family: "Sora", sans-serif; }
+      .font-compressed {
+        font-family: 'Helvetica Compressed', 'Arial Narrow', Impact, 'Franklin Gothic Condensed', 'Oswald', sans-serif;
+        font-stretch: condensed;
+        letter-spacing: -0.02em;
+      }
       ::-webkit-scrollbar { width: 3px; }
       ::-webkit-scrollbar-track { background: #1a1a1a; }
       ::-webkit-scrollbar-thumb { background: #ffffff; border-radius: 2px; }
